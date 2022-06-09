@@ -1,5 +1,5 @@
-# Tracjectory_Planner_Dijkstra
-<---------------------------------Dijkstra Grid------------------------------------->  
+# Data Structure Learning Record (By C++)
+<---------------------------------Data Structure------------------------------------->  
 Author: Wow-zheng                                      (https://github.com/Wow-zheng)  
 Illustrate：  
     This code is written when learning data structure, and the reference book is  

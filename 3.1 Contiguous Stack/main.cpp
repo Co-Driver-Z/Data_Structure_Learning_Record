@@ -13,6 +13,7 @@ struct LNode
     LNode& operator=(const LNode* L1){                              // 重载=运算符
         this->coef = L1->coef;
         this->expn = L1->expn;
+        return *this;
     }
     float coef = 0.0;
     int expn = 0;

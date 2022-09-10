@@ -1,15 +1,37 @@
-// 4.1 BF(Brute-Force)算法
-// 1.1、使用顺序线性表实现BF算法，使用STL库
+// 4.1 BF算法
+// 1、使用顺序线性表实现BF算法，使用STL库，起始索引为1
+// 2、使用顺序线性表实现BF算法，使用STL库，起始索引为0
 #include <iostream>
-#include <vector>
-typedef unsigned int uint;
 /*
- *  1.1、使用STL库进行实现
+ *  1、起始索引为1的BF搜索
  */
-int BF_SearchSubStr(std::vector<char> S, std::vector<char> T, int Pos){
+int BF_SearchSubStrOneStart(std::string S, std::string T, int Pos){
+    int i = Pos;
+    int j = 1;
+    int S_Len = S.size() - 1;
+    int T_Len = T.size() - 1;
+    while(i <= S_Len && j <= T_Len){
+        if (S[i] == T[j])
+            ++i, ++j;
+        else{
+            i = i - j + 2;
+            j = 1;
+        }
+    }
+    if (j > T_Len)
+        return i - T_Len;
+    else
+        return -1;
+}
+/*
+ *  2、起始索引为0的BF搜索
+ */
+int BF_SearchSubStrZeroStart(std::string S, std::string T, int Pos){
     int i = Pos;
     int j = 0;
-    while(i < S.size() && j < T.size()){
+    int S_Len = S.size();
+    int T_Len = T.size();
+    while(i < S_Len && j < T_Len){
         if (S[i] == T[j])
             ++i, ++j;
         else{
@@ -17,20 +39,29 @@ int BF_SearchSubStr(std::vector<char> S, std::vector<char> T, int Pos){
             j = 0;
         }
     }
-    if (j >= T.size())
-        return i - T.size();
+    if (j >= T_Len)
+        return i - T_Len;
     else
         return -1;
 }
 
 int main()
 {
-    std::vector<char> S = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
-    std::vector<char> T = {'c', 'd', 'e'};
-    uint Num = BF_SearchSubStr(S, T, 0);
-    if (Num < 0)
+    // 1、1起始索引BF搜索
+    std::string S_OneStart(" abcdefg");
+    std::string T_OneStart(" cde");
+    int Num_OneStart = BF_SearchSubStrOneStart(S_OneStart, T_OneStart, 1);
+    if (Num_OneStart < 0)
         std::cout << "[失败]未能找到子串!" << std::endl;
     else
-        std::cout << "[成功]子串起始位置为:" << Num << std::endl;
+        std::cout << "[成功]子串起始位置为:" << Num_OneStart << std::endl;
+    // 2、0起始索引BF搜索
+    std::string S_ZeroStart("abcdefg");
+    std::string T_ZeroStart("cde");
+    int Num_ZeroStart = BF_SearchSubStrZeroStart(S_ZeroStart, T_ZeroStart, 0);
+    if (Num_ZeroStart < 0)
+        std::cout << "[失败]未能找到子串!" << std::endl;
+    else
+        std::cout << "[成功]子串起始位置为:" << Num_ZeroStart << std::endl;
     return 0;
 }
